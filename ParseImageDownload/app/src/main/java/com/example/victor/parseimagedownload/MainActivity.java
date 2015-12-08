@@ -1,42 +1,97 @@
 package com.example.victor.parseimagedownload;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+public class MainActivity extends Activity {
+    Button button;
+    private ProgressDialog progressDialog;
+
+    /** Called when the activity is first created. */
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Get the view from main.xml
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        // Show progress dialog
 
+        // Locate the button in main.xml
+        button = (Button) findViewById(R.id.button);
 
-    }
+        // Capture button clicks
+        button.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+                progressDialog = ProgressDialog.show(MainActivity.this, "",
+                        "Downloading Image...", true);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+                // Locate the class table named "ImageUpload" in Parse.com
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                        "ImageUpload");
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+                // Locate the objectId from the class
+                query.getInBackground("svjq1hEE48",
+                        new GetCallback<ParseObject>() {
 
-        return super.onOptionsItemSelected(item);
+                            public void done(ParseObject object,
+                                             ParseException e) {
+                                // TODO Auto-generated method stub
+
+                                // Locate the column named "ImageName" and set
+                                // the string
+                                ParseFile fileObject = (ParseFile) object
+                                        .get("ImageFile");
+                                fileObject
+                                        .getDataInBackground(new GetDataCallback() {
+
+                                            public void done(byte[] data,
+                                                             ParseException e) {
+                                                if (e == null) {
+                                                    Log.d("test",
+                                                            "We've got data in data.");
+                                                    // Decode the Byte[] into
+                                                    // Bitmap
+                                                    Bitmap bmp = BitmapFactory
+                                                            .decodeByteArray(
+                                                                    data, 0,
+                                                                    data.length);
+
+                                                    // Get the ImageView from
+                                                    // main.xml
+                                                    ImageView image = (ImageView) findViewById(R.id.image);
+
+                                                    // Set the Bitmap into the
+                                                    // ImageView
+                                                    image.setImageBitmap(bmp);
+
+                                                    // Close progress dialog
+                                                    progressDialog.dismiss();
+
+                                                } else {
+                                                    Log.d("test",
+                                                            "There was a problem downloading the data.");
+                                                }
+                                            }
+                                        });
+                            }
+                        });
+            }
+
+        });
     }
 }
