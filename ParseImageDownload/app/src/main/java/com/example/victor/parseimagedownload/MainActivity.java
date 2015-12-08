@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
                         "ImageUpload");
 
                 // Locate the objectId from the class
-                query.getInBackground("svjq1hEE48",
+                query.getInBackground("OoRkSbnjc7",
                         new GetCallback<ParseObject>() {
 
                             public void done(ParseObject object,
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
                                 // Locate the column named "ImageName" and set
                                 // the string
                                 ParseFile fileObject = (ParseFile) object
-                                        .get("ImageFile");
+                                        .get("UploadAndDownloadImage");
                                 fileObject
                                         .getDataInBackground(new GetDataCallback() {
 
