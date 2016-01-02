@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/victor/Desktop/Android/myandroidwidgets/TD Simple RSS Reader-31/app/libs/jsoup-1.7.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="99351550d1fa2e8147319dbafd3f3a79d4f4c6e5">
+        <dex dex="/home/victor/Desktop/Android/myandroidwidgets/TD Simple RSS Reader-31/app/build/intermediates/pre-dexed/debug/jsoup-1.7.1-880feeed43132f37fe8f17f299ef2ea633526b22.jar" />
+    </item>
+    <item
+        jar="/home/victor/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/victor/Desktop/Android/myandroidwidgets/TD Simple RSS Reader-31/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-b8bb4c69bea7c088d2fced6fe20ded53fea5af57.jar" />
+    </item>
+
+</items>
