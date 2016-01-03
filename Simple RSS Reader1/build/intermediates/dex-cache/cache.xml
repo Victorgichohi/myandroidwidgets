@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/victor/Desktop/Android/myandroidwidgets/Simple RSS Reader1/app/libs/jsoup-1.8.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3a86e137575e4a45f5a9eec407f8135512e823a2">
+        <dex dex="/home/victor/Desktop/Android/myandroidwidgets/Simple RSS Reader1/app/build/intermediates/pre-dexed/debug/jsoup-1.8.3-a3d9bed85cd9c50ebcafe2a98da10d32ae732c74.jar" />
+    </item>
+
+</items>
