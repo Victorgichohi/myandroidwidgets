@@ -1,6 +1,7 @@
 package codescratch.rssreader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +9,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 
 public class SplashActivity extends Activity {
 
@@ -51,13 +51,13 @@ public class SplashActivity extends Activity {
 
     }
 
-    private class AsyncLoadXMLFeed extends AsyncTask {
+    private class AsyncLoadXMLFeed extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
 
-// Obtain feed
-            DOM_Parser myParser = new DOM_Parser();
+            // Obtain feed
+            DOMParser myParser = new DOMParser();
             feed = myParser.parseXml(RSSFEEDURL);
             return null;
 
