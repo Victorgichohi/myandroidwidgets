@@ -3,13 +3,14 @@ package codescratch.rssreader;
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-/**
- * Created by victor on 1/4/16.
- */
+import codescratch.rssreader.RSSFeed;
+
 public class DetailActivity extends Activity {
 
     RSSFeed feed;
@@ -21,27 +22,27 @@ public class DetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail);
 
-// Enable the vertical fading edge (by default it is disabled)
+        // Enable the vertical fading edge (by default it is disabled)
         ScrollView sv = (ScrollView) findViewById(R.id.sv);
         sv.setVerticalFadingEdgeEnabled(true);
 
-// Get the feed object and the position from the Intent
+        // Get the feed object and the position from the Intent
         feed = (RSSFeed) getIntent().getExtras().get("feed");
         int pos = getIntent().getExtras().getInt("pos");
 
-// Initialize the views
+        // Initialize the views
         title = (TextView) findViewById(R.id.title);
         desc = (WebView) findViewById(R.id.desc);
 
-// set webview properties
+        // set webview properties
         WebSettings ws = desc.getSettings();
-        ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        ws.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
         ws.getPluginState();
-        ws.setPluginState(WebSettings.PluginState.ON);
+        ws.setPluginState(PluginState.ON);
         ws.setJavaScriptEnabled(true);
         ws.setBuiltInZoomControls(true);
 
-// Set the views
+        // Set the views
         title.setText(feed.getItem(pos).getTitle());
         desc.loadDataWithBaseURL("http://www.androidcentral.com/", feed
                 .getItem(pos).getDescription(), "text/html", "UTF-8", null);

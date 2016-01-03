@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-/**
- * Created by victor on 1/4/16.
- */
+import codescratch.rssreader.ImageLoader;
+import codescratch.rssreader.RSSFeed;
+
 public class ListActivity extends Activity {
 
     Application myApp;
@@ -31,24 +33,24 @@ public class ListActivity extends Activity {
 
         myApp = getApplication();
 
-// Get feed form the file
+        // Get feed form the file
         feed = (RSSFeed) getIntent().getExtras().get("feed");
 
-// Initialize the variables:
+        // Initialize the variables:
         lv = (ListView) findViewById(R.id.listView);
         lv.setVerticalFadingEdgeEnabled(true);
 
-// Set an Adapter to the ListView
+        // Set an Adapter to the ListView
         adapter = new CustomListAdapter(this);
         lv.setAdapter(adapter);
 
-// Set on item click listener to the ListView
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Set on item click listener to the ListView
+        lv.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView arg0, View arg1, int arg2,
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-// actions to be performed when a list item clicked
+                // actions to be performed when a list item clicked
                 int pos = arg2;
 
                 Bundle bundle = new Bundle();
@@ -86,7 +88,7 @@ public class ListActivity extends Activity {
         @Override
         public int getCount() {
 
-// Set the total list item count
+            // Set the total list item count
             return feed.getItemCount();
         }
 
@@ -103,24 +105,26 @@ public class ListActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-// Inflate the item layout and set the views
+            // Inflate the item layout and set the views
             View listItem = convertView;
             int pos = position;
             if (listItem == null) {
                 listItem = layoutInflater.inflate(R.layout.list_item, null);
             }
 
-// Initialize the views in the layout
+            // Initialize the views in the layout
             ImageView iv = (ImageView) listItem.findViewById(R.id.thumb);
             TextView tvTitle = (TextView) listItem.findViewById(R.id.title);
             TextView tvDate = (TextView) listItem.findViewById(R.id.date);
 
-// Set the views in the layout
+            // Set the views in the layout
             imageLoader.DisplayImage(feed.getItem(pos).getImage(), iv);
             tvTitle.setText(feed.getItem(pos).getTitle());
             tvDate.setText(feed.getItem(pos).getDate());
 
             return listItem;
         }
+
     }
+
 }

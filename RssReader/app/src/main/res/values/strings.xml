@@ -4,4 +4,5 @@
     <string name="loading">loading</string>
     <string name="title">title</string>
     <string name="date">date</string>
+    <string name="desc">desc</string>
 </resources>

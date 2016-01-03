@@ -2,7 +2,6 @@ package codescratch.rssreader;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +9,14 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import codescratch.rssreader.DOMParser;
+import codescratch.rssreader.RSSFeed;
+
 public class SplashActivity extends Activity {
 
     private String RSSFEEDURL = "http://www.mobilenations.com/rss/mb.xml";
+//	private String RSSFEEDURL = "http://www.soshified.com/feed";
+
     RSSFeed feed;
 
     @Override
@@ -25,7 +29,7 @@ public class SplashActivity extends Activity {
         if (conMgr.getActiveNetworkInfo() == null
                 && !conMgr.getActiveNetworkInfo().isConnected()
                 && !conMgr.getActiveNetworkInfo().isAvailable()) {
-// No connectivity - Show alert
+            // No connectivity - Show alert
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(
                     "Unable to reach server, \nPlease check your connectivity.")
@@ -44,7 +48,7 @@ public class SplashActivity extends Activity {
             alert.show();
 
         } else {
-// Connected - Start parsing
+            // Connected - Start parsing
             new AsyncLoadXMLFeed().execute();
 
         }
@@ -70,13 +74,15 @@ public class SplashActivity extends Activity {
             Bundle bundle = new Bundle();
             bundle.putSerializable("feed", feed);
 
-// launch List activity
+            // launch List activity
             Intent intent = new Intent(SplashActivity.this, ListActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
 
-// kill this activity
+            // kill this activity
             finish();
         }
+
     }
+
 }
